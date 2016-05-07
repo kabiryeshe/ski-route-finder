@@ -8,7 +8,7 @@ import static java.util.stream.Collectors.toList;
 
 public class InputReader {
 
-    public static ArrayList<ArrayList<Integer>> convertToGrid(String input) {
+    public static List<List<Integer>> convertToGrid(String input) {
         String[] rows = input.split("\n");
         Integer gridSize = new Integer(rows[0].split(" ")[0]);
 
