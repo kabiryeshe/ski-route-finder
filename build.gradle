@@ -1,0 +1,30 @@
+
+apply plugin: 'java'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+dependencies {
+    // The production code uses the SLF4J logging API at compile time
+    compile 'org.slf4j:slf4j-api:1.7.13'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.redmart.route.SkiRouteFinder'
+        )
+    }
+}
+
+task execute(type: Exec) {
+    executable 'sh'
+    args "-c", 'java -jar ./build/libs/ski_route_finder.jar'
+}
+
