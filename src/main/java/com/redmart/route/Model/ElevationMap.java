@@ -9,7 +9,7 @@ import static java.util.stream.Collectors.toList;
 public class ElevationMap {
 
     private List<List<MapPoint>> mapPoints;
-    private HashMap<MapPoint, Route> routes = new HashMap<>();
+    private HashMap<MapPoint, RouteInfo> routes = new HashMap<>();
     private int size;
 
     public ElevationMap(List<List<Integer>> grid) {
@@ -29,37 +29,37 @@ public class ElevationMap {
     }
 
 
-    public Route findLongestRouteWithMaximumDrop() {
-        Route longestSteepestRoute = null;
+    public RouteInfo findLongestRouteWithMaximumDrop() {
+        RouteInfo longestSteepestRouteInfo = null;
         for (List<MapPoint> rows : mapPoints) {
             for (MapPoint mapPoint : rows) {
-                Route route = getRoute(mapPoint);
-                longestSteepestRoute = Route.longerSteeper(longestSteepestRoute, route);
+                RouteInfo routeInfo = getRoute(mapPoint);
+                longestSteepestRouteInfo = RouteInfo.longerSteeper(longestSteepestRouteInfo, routeInfo);
             }
         }
 
-        return longestSteepestRoute;
+        return longestSteepestRouteInfo;
     }
 
-    public Route getRoute(MapPoint point) {
+    public RouteInfo getRoute(MapPoint point) {
 
         if (routes.containsKey(point)) {
             return routes.get(point);
         }
 
-        Route longestSteepestRoute = new Route(point);
+        RouteInfo longestSteepestRouteInfo = new RouteInfo(point);
 
         List<MapPoint> neighbouringPoints = getNeighbouringPoints(point);
         if (!neighbouringPoints.isEmpty()) {
             for (MapPoint neighbourPoint : neighbouringPoints) {
-                Route pathFromNeighbour = getRoute(neighbourPoint);
-                Route pathFromPoint = new Route(point, pathFromNeighbour);
-                longestSteepestRoute = Route.longerSteeper(longestSteepestRoute, pathFromPoint);
+                RouteInfo pathFromNeighbour = getRoute(neighbourPoint);
+                RouteInfo pathFromPoint = new RouteInfo(point, pathFromNeighbour);
+                longestSteepestRouteInfo = RouteInfo.longerSteeper(longestSteepestRouteInfo, pathFromPoint);
             }
         }
 
-        routes.put(point, longestSteepestRoute);
-        return longestSteepestRoute;
+        routes.put(point, longestSteepestRouteInfo);
+        return longestSteepestRouteInfo;
     }
 
 
@@ -89,16 +89,16 @@ public class ElevationMap {
     }
 
 
-    public List<MapPoint> getCompleteRoute(Route route) {
+    public List<MapPoint> getCompleteRoute(RouteInfo routeInfo) {
 
         ArrayList<MapPoint> pointsOnRoute = new ArrayList<>();
 
-        pointsOnRoute.add(route.getFirstPoint());
+        pointsOnRoute.add(routeInfo.getFirstPoint());
 
-        while (route.getFirstPoint() != route.getLastPoint()) {
-            MapPoint mapPoint = route.getNextPoint();
+        while (routeInfo.getFirstPoint() != routeInfo.getLastPoint()) {
+            MapPoint mapPoint = routeInfo.getNextPoint();
             pointsOnRoute.add(mapPoint);
-            route = getRoute(route.getNextPoint());
+            routeInfo = getRoute(routeInfo.getNextPoint());
         }
 
         return pointsOnRoute;

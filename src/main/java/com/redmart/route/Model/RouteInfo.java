@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class Route {
+public class RouteInfo {
     @Getter
     private MapPoint firstPoint;
     @Getter
@@ -14,7 +14,7 @@ public class Route {
     @Getter
     int length;
 
-    public Route(MapPoint firstPoint, Route pathAhead) {
+    public RouteInfo(MapPoint firstPoint, RouteInfo pathAhead) {
         this.firstPoint = firstPoint;
         this.nextPoint = pathAhead.firstPoint;
         this.lastPoint = pathAhead.lastPoint;
@@ -22,7 +22,7 @@ public class Route {
     }
 
 
-    public Route(MapPoint onlyPoint) {
+    public RouteInfo(MapPoint onlyPoint) {
         this.firstPoint = onlyPoint;
         this.lastPoint = onlyPoint;
         this.length = 1;
@@ -34,7 +34,7 @@ public class Route {
     }
 
 
-    public static Route longerSteeper(Route path1, Route path2) {
+    public static RouteInfo longerSteeper(RouteInfo path1, RouteInfo path2) {
         if (null == path1) {
             return path2;
         }

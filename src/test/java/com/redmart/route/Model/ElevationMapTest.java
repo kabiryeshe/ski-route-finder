@@ -44,25 +44,25 @@ public class ElevationMapTest {
 
     @Test
     public void shouldHaveLongestRouteLengthAsOneWhenOnlyOnePoint() throws Exception {
-        Route route = new ElevationMap(asList(asList(12))).findLongestRouteWithMaximumDrop();
+        RouteInfo routeInfo = new ElevationMap(asList(asList(12))).findLongestRouteWithMaximumDrop();
 
-        assertThat(route.getLength(), is(1));
-        assertThat(route.getSlope(), is(0));
+        assertThat(routeInfo.getLength(), is(1));
+        assertThat(routeInfo.getSlope(), is(0));
     }
 
     @Test
     public void shouldGiveSteepestAndLongestRoute() throws Exception {
-        Route route = elevationMap.findLongestRouteWithMaximumDrop();
+        RouteInfo routeInfo = elevationMap.findLongestRouteWithMaximumDrop();
 
-        assertThat(route.getLength(), is(5));
-        assertThat(route.getSlope(), is(8));
+        assertThat(routeInfo.getLength(), is(5));
+        assertThat(routeInfo.getSlope(), is(8));
     }
 
     @Test
     public void shouldGiveAllThePointsOnTheRoute() throws Exception {
 
-        Route route = elevationMap.findLongestRouteWithMaximumDrop();
-        List<MapPoint> completeRoute = elevationMap.getCompleteRoute(route);
+        RouteInfo routeInfo = elevationMap.findLongestRouteWithMaximumDrop();
+        List<MapPoint> completeRoute = elevationMap.getCompleteRoute(routeInfo);
         List<Integer> actualElevations = completeRoute.stream().map(MapPoint::getElevation).collect(toList());
         assertThat(actualElevations, contains(9, 5, 3, 2, 1));
 
