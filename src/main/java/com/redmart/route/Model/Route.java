@@ -7,6 +7,7 @@ import lombok.Getter;
 public class Route {
     @Getter
     private MapPoint firstPoint;
+    @Getter
     private MapPoint nextPoint;
     @Getter
     private MapPoint lastPoint;

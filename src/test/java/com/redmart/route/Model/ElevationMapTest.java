@@ -10,6 +10,7 @@ import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 
 public class ElevationMapTest {
 
@@ -57,6 +58,13 @@ public class ElevationMapTest {
         assertThat(route.getSlope(), is(8));
     }
 
+    @Test
+    public void shouldGiveAllThePointsOnTheRoute() throws Exception {
 
+        Route route = elevationMap.findLongestRouteWithMaximumDrop();
+        List<MapPoint> completeRoute = elevationMap.getCompleteRoute(route);
+        List<Integer> actualElevations = completeRoute.stream().map(MapPoint::getElevation).collect(toList());
+        assertThat(actualElevations, contains(9, 5, 3, 2, 1));
 
+    }
 }

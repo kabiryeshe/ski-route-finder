@@ -31,8 +31,8 @@ public class ElevationMap {
 
     public Route findLongestRouteWithMaximumDrop() {
         Route longestSteepestRoute = null;
-        for(List<MapPoint> rows : mapPoints) {
-            for(MapPoint mapPoint : rows) {
+        for (List<MapPoint> rows : mapPoints) {
+            for (MapPoint mapPoint : rows) {
                 Route route = getRoute(mapPoint);
                 longestSteepestRoute = Route.longerSteeper(longestSteepestRoute, route);
             }
@@ -41,7 +41,7 @@ public class ElevationMap {
         return longestSteepestRoute;
     }
 
-    private Route getRoute(MapPoint point) {
+    public Route getRoute(MapPoint point) {
 
         if (routes.containsKey(point)) {
             return routes.get(point);
@@ -86,6 +86,22 @@ public class ElevationMap {
         }
 
         return neighbourPoints.stream().filter(np -> np.getElevation() < point.getElevation()).collect(toList());
+    }
+
+
+    public List<MapPoint> getCompleteRoute(Route route) {
+
+        ArrayList<MapPoint> pointsOnRoute = new ArrayList<>();
+
+        pointsOnRoute.add(route.getFirstPoint());
+
+        while (route.getFirstPoint() != route.getLastPoint()) {
+            MapPoint mapPoint = route.getNextPoint();
+            pointsOnRoute.add(mapPoint);
+            route = getRoute(route.getNextPoint());
+        }
+
+        return pointsOnRoute;
     }
 
 }
