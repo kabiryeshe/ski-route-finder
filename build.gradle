@@ -28,18 +28,3 @@ task execute(type: Exec) {
     executable 'sh'
     args "-c", 'java -jar ./build/libs/ski_route_finder.jar'
 }
-
-
-sourceSets {
-    main {
-        resources {
-            srcDirs "src/main/resources"
-        }
-    }
-
-    test {
-        resources {
-            srcDirs "src/main/resources"
-        }
-    }
-}
