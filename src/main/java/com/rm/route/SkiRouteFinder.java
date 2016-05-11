@@ -11,7 +11,7 @@ public class SkiRouteFinder {
 
     public static void main(String []args) {
         try {
-            List<List<Integer>> grid = InputReader.readAndParseInput("./sample_input_1000.txt");
+            List<List<Integer>> grid = InputReader.readAndParseInput(args[0]);
             ElevationMap elevationMap = new ElevationMap(grid);
             RouteInfo routeInfo = elevationMap.findLongestRouteWithMaximumDrop();
             new RoutePrinter().printRoute(elevationMap, routeInfo);

@@ -32,6 +32,7 @@ sourceSets {
 }
 
 task execute(type: Exec) {
+    dependsOn jar
     executable 'sh'
-    args "-c", 'java -jar ./build/libs/ski_route_finder.jar'
+    args "-c", 'java -jar ./build/libs/ski_route_finder.jar ./sample_input_1000.txt'
 }
