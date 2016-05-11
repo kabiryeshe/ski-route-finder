@@ -18,7 +18,5 @@ public class SkiRouteFinder {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-
     }
 }

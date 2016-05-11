@@ -19,8 +19,15 @@ dependencies {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.redmart.route.SkiRouteFinder'
+            'Main-Class': 'com.rm.route.SkiRouteFinder'
         )
+    }
+}
+sourceSets {
+    test {
+        resources {
+            srcDirs "src/test/resources"
+        }
     }
 }
 

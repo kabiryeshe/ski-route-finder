@@ -11,10 +11,12 @@ import static org.hamcrest.core.Is.is;
 public class InputReaderTest {
     @Test
     public void shouldParseInputStringAndReturnGridOfNumbers() throws Exception {
-        //TODO: Fix the input file
-        String path = ".src/test/java/com/redmart/route/resources/sample_input_1000.txt";
-        List<List<Integer>> grid = new InputReader().readAndParseInput(path);
+        List<List<Integer>> grid = new InputReader().readAndParseInput(loadFile("sample_input.txt"));
         assertThat(grid.size(), is(4));
         assertThat(grid.get(0).size(), is(4));
+    }
+
+    private String loadFile(String fileName) {
+        return this.getClass().getClassLoader().getResource(fileName).getFile();
     }
 }
